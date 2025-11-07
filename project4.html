@@ -90,7 +90,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 2rem;
+            padding: 1rem;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -100,23 +100,43 @@
             opacity: 1;
             visibility: visible;
         }
+        
         .lightbox-content {
             position: relative;
-            max-width: 80vw;
-            max-height: 90vh;
+            margin: auto;
+            background-color: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 4px solid white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            line-height: 0;
         }
+        
         .lightbox-content img {
             max-width: 90vw;
             max-height: 90vh;
             object-fit: contain;
-            border-radius: 16px;
-            border: 4px solid white;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: none; 
         }
+        
+        .lightbox-content iframe {
+            width: 90vw;
+            height: 90vh;
+            border: none;
+            display: none;
+        }
+
+        .lightbox.show-image .lightbox-content img {
+            display: block;
+        }
+        .lightbox.show-iframe .lightbox-content iframe {
+            display: block;
+        }
+
         .lightbox-close {
             position: absolute;
-            top: -1rem;
-            right: -1rem;
+            top: -0.5rem;
+            right: -0.5rem;
             width: 40px;
             height: 40px;
             background-color: white;
@@ -131,6 +151,7 @@
             align-items: center;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             transition: all 0.2s ease;
+            z-index: 101;
         }
         .lightbox-close:hover {
             transform: scale(1.1) rotate(90deg);
@@ -145,15 +166,15 @@
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <div class="flex-shrink-0">
-                    <a href="portfolio.html#home" class="text-3xl font-bold text-purple-600">
+                    <a href="index.html#home" class="text-3xl font-bold text-purple-600">
                         🌼 Davina
                     </a>
                 </div>
                 <div class="hidden md:flex md:items-center md:space-x-4">
-                    <a href="portfolio.html#home" class="bubbly-button">Home</a>
-                    <a href="portfolio.html#about" class="bubbly-button">About Me</a>
-                    <a href="portfolio.html#projects" class="bubbly-button">Projects</a>
-                    <a href="portfolio.html#contact" class="bubbly-button bubbly-button-primary">Contact</a>
+                    <a href="index.html#home" class="bubbly-button">Home</a>
+                    <a href="index.html#about" class="bubbly-button">About Me</a>
+                    <a href="index.html#projects" class="bubbly-button">Projects</a>
+                    <a href="index.html#contact" class="bubbly-button bubbly-button-primary">Contact</a>
                 </div>
                 <div class="md:hidden flex items-center">
                     <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-lg text-purple-500 bg-white/50 hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-purple-500">
@@ -170,17 +191,15 @@
         </nav>
         <div id="mobile-menu" class="md:hidden hidden bg-white/95 backdrop-blur-md shadow-lg rounded-b-2xl">
             <div class="px-4 pt-2 pb-4 space-y-2">
-                <a href="portfolio.html#home" class="block text-lg font-medium text-purple-600 hover:bg-purple-50 px-4 py-3 rounded-xl">Home</a>
-                <a href="portfolio.html#about" class="block text-lg font-medium text-purple-600 hover:bg-purple-50 px-4 py-3 rounded-xl">About Me</a>
-                <a href="portfolio.html#projects" class="block text-lg font-medium text-purple-600 hover:bg-purple-50 px-4 py-3 rounded-xl">Projects</a>
-                <a href="portfolio.html#contact" class="block text-lg font-medium text-white bg-purple-500 hover:bg-purple-600 px-4 py-3 rounded-xl">Contact</a>
+                <a href="index.html#home" class="block text-lg font-medium text-purple-600 hover:bg-purple-50 px-4 py-3 rounded-xl">Home</a>
+                <a href="index.html#about" class="block text-lg font-medium text-purple-600 hover:bg-purple-50 px-4 py-3 rounded-xl">About Me</a>
+                <a href="index.html#projects" class="block text-lg font-medium text-purple-600 hover:bg-purple-50 px-4 py-3 rounded-xl">Projects</a>
+                <a href="index.html#contact" class="block text-lg font-medium text-white bg-purple-500 hover:bg-purple-600 px-4 py-3 rounded-xl">Contact</a>
             </div>
         </div>
     </header>
 
-    <!-- ========== MAIN CONTENT ========== -->
     <main>
-        <!-- ========== PROJECT 4 (GALLERY) DETAIL PAGE ========== -->
         <section id="project-4-details" class="min-h-screen py-24 bg-purple-50/50 pt-32">
             <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="bubbly-card p-8 md:p-12">
@@ -188,28 +207,31 @@
                         UI/UX Design Gallery
                     </h2>
                     <p class="text-xl text-gray-600 text-center max-w-2xl mx-auto mb-12">
-                        Here is a collection of my design work, including app mockups, wireframes, and component designs. Click on any image to see it in full detail.
+                        Here is a collection of my design work, including app mockups, UI panels, and component designs. Click on any item to see it in full detail in Figma.
                     </p>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         
-                        <div class="gallery-item">
-                            <img src="https://placehold.co/600x800/d8b4fe/581c87?text=Mobile+App+Screen&font=fredoka" alt="UI Design 1">
+                        <div class="gallery-item" 
+                             data-iframe-src="https://embed.figma.com/proto/20TmPQNKa3E0ed7p8uifr2/Genshin-UI?page-id=0%3A1&node-id=1-2&viewport=-81%2C229%2C0.45&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A2&embed-host=share">
+                            
+                            <img src="UI-UX/GenshinUIThumbnail.png" alt="Genshin Character Selector Prototype">
                         </div>
 
-                        <div class="gallery-item">
-                            <img src="https://placehold.co/600x400/fbcfe8/9d174d?text=Website+Homepage&font=fredoka" alt="UI Design 2">
+                        <div class="gallery-item"
+                            data-iframe-src="https://embed.figma.com/design/2UsDo09JxGndBEOtpt8mzU/Real-time-Info-Panel?node-id=0-1&embed-host=share">
+                            <img src="UI-UX/RealTimeInfoUIPanel.png" alt="Real Time Info Panel Prototype">
                         </div>
    
-                        <div class="gallery-item">
-                            <img src="https://placehold.co/600x600/bbf7d0/166534?text=Dashboard+Design&font=fredoka" alt="UI Design 3">
+                        <div class="gallery-item"
+                            data-iframe-src="https://embed.figma.com/design/SAvpLpPYGD9DJxLVFHcNhm/Rover-Info-Popup-Panel?node-id=0-1&embed-host=share">
+                            <img src="UI-UX/RoverInfoPopupUIPanel.png" alt="Rover Info Popup Panel Prototype">
                         </div>
 
                         <div class="gallery-item">
                             <img src="https://placehold.co/600x400/bfdbfe/1e40af?text=Wireframes&font=fredoka" alt="UI Design 4">
                         </div>
                         
-
                         <div class="gallery-item">
                             <img src="https://placehold.co/600x800/fef08a/854d0e?text=Login+Page&font=fredoka" alt="UI Design 5">
                         </div>
@@ -221,7 +243,7 @@
                     </div>
 
                     <div class="text-center mt-12">
-                        <a href="portfolio.html#projects" class="bubbly-button bubbly-button-primary text-lg">
+                        <a href="index.html#projects" class="bubbly-button bubbly-button-primary text-lg">
                             <i class="fas fa-arrow-left mr-2"></i> Back to Projects
                         </a>
                     </div>
@@ -231,12 +253,12 @@
     </main>
 
     <div id="lightbox" class="lightbox">
-        <button id="lightbox-close" class="lightbox-close">&times;</button>
         <div class="lightbox-content">
+            <button id="lightbox-close" class="lightbox-close">&times;</button>
             <img id="lightbox-img" src="" alt="Enlarged gallery view">
+            <iframe id="lightbox-iframe" src="" allowfullscreen></iframe>
         </div>
     </div>
-
 
     <!-- ========== FOOTER ========== -->
     <footer class="bg-white/80 border-t border-purple-100">
@@ -269,23 +291,40 @@
             });
         });
 
-        const galleryItems = document.querySelectorAll('.gallery-item');
+        const allGalleryItems = document.querySelectorAll('.gallery-item');
+        
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxIframe = document.getElementById('lightbox-iframe');
         const lightboxClose = document.getElementById('lightbox-close');
 
-        galleryItems.forEach(item => {
+        allGalleryItems.forEach(item => {
             item.addEventListener('click', () => {
-                const imgSrc = item.querySelector('img').src;
                 
-                lightboxImg.src = imgSrc;
+                const iframeSrc = item.dataset.iframeSrc; 
                 
-                lightbox.classList.add('show');
+                if (iframeSrc) {
+                    lightboxIframe.src = iframeSrc;
+                    lightbox.classList.add('show');
+                    lightbox.classList.add('show-iframe'); 
+                    lightbox.classList.remove('show-image');
+                } else {
+                    const img = item.querySelector('img');
+                    if (img) { 
+                        lightboxImg.src = img.src;
+                        lightbox.classList.add('show');
+                        lightbox.classList.add('show-image'); 
+                        lightbox.classList.remove('show-iframe');
+                    }
+                }
             });
         });
         
         function closeLightbox() {
             lightbox.classList.remove('show');
+            lightbox.classList.remove('show-image');
+            lightbox.classList.remove('show-iframe');
+            lightboxIframe.src = ""; 
         }
 
         lightboxClose.addEventListener('click', closeLightbox);
