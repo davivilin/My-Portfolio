@@ -4,294 +4,720 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Art Gallery - Davina's Portfolio</title>
-
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏵️</text></svg>">
-    
+    <title>CropIt - Davina's Portfolio</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     
+    <link rel="stylesheet" href="public/dreamos-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
+    
     <style>
-        body {
-            font-family: 'Fredoka', 'Nunito', sans-serif;
-            background-color: #f5f3ff;
-            overflow-x: hidden;
+        /* Custom Font for the Pixel look */
+        .font-pixel-capsule {
+            font-family: 'VT323', monospace;
+            font-size: 1.5rem; 
+            letter-spacing: 0.05em;
         }
-        .bubbly-button {
-            background-color: #ffffff;
-            color: #a855f7;
-            font-weight: 600;
+
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* CAPSULE CONTAINER STYLE */
+        .nav-capsule {
+            background: #F3F4F6; /* Very light grey/white */
+            border: 4px solid white; /* Thick white border */
+            box-shadow: 0 4px 20px rgba(167, 139, 250, 0.25); /* Soft purple shadow */
             border-radius: 9999px;
-            padding: 12px 28px;
-            border: 2px solid #ffffff;
-            box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.05), 0 4px 6px rgba(167, 139, 250, 0.3), 0 1px 3px rgba(0, 0, 0, 0.05);
-            transition: all 0.15s ease-out;
         }
-        .bubbly-button:hover {
+
+        /* STANDARD LINKS */
+        .nav-link {
+            color: #5b21b6; /* Dark Purple */
+            padding: 0 1rem;
+            transition: color 0.2s;
+        }
+        .nav-link:hover {
+            color: #7c3aed;
+        }
+
+        /* CONTACT BUTTON STYLE */
+        .nav-btn-contact {
+            background: linear-gradient(90deg, #e9d5ff, #fbcfe8) !important; 
+            color: #5b21b6 !important; 
+            border-radius: 9999px; 
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn-contact:hover {
             transform: translateY(-2px);
-            box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.05), 0 6px 12px rgba(167, 139, 250, 0.4), 0 2px 4px rgba(0, 0, 0, 0.05);
-        }
-        .bubbly-button:active {
-            transform: translateY(1px);
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(167, 139, 250, 0.3), 0 1px 2px rgba(0, 0, 0, 0.05);
-        }
-        .bubbly-button-primary {
-            background-color: #d8b4fe;
-            color: #581c87;
-            border-color: #ffffff;
-        }
-        .bubbly-card {
-            background-color: #ffffff;
-            border-radius: 24px;
-            border: 2px solid #ffffff;
-            box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.5), 0 10px 20px rgba(233, 213, 255, 0.7), 0 2px 6px rgba(233, 213, 255, 0.5);
-            transition: all 0.2s ease-out;
-        }
-        .bubbly-card:hover {
-            transform: translateY(-5px);
-            box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.5), 0 15px 25px rgba(221, 214, 254, 0.8), 0 4px 10px rgba(221, 214, 254, 0.6);
-        }
-        .title-shadow {
-            text-shadow: 0 2px 4px rgba(233, 213, 255, 0.9);
+            box-shadow: 0 4px 15px rgba(167, 139, 250, 0.4);
+            background: linear-gradient(90deg, #d8b4fe, #f9a8d4) !important;
         }
 
-        .gallery-item {
-            border-radius: 16px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.2s ease-out;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            border: 2px solid white;
-        }
-        .gallery-item:hover {
-            transform: scale(1.05) rotate(1deg);
-            box-shadow: 0 10px 20px rgba(167, 139, 250, 0.4);
-        }
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        /* === UPDATED CAROUSEL STYLES === */
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    background: #ffffff;
+    border: 2px solid rgba(139, 92, 246, 0.3);
+    display: flex;
+    flex-direction: column; /* Stacks Image on top, Text on bottom */
+}
 
-        .lightbox {
+.carousel-slide {
+    display: none;
+    width: 100%;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.carousel-slide.active {
+    display: block;
+}
+
+/* Image Area: Fixed height, clickable */
+.carousel-image-container {
+    width: 100%;
+    height: 350px; /* Adjust this height if needed */
+    background-color: #f8fafc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-in;
+    border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+}
+
+.carousel-image-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* Caption Area: Sits below the image */
+.carousel-caption {
+    padding: 1.5rem;
+    background: white;
+    color: #4b5563;
+    text-align: left;
+}
+
+/* Buttons: Centered on the IMAGE part only */
+.carousel-btn {
+    position: absolute;
+    top: 35%; /* Moves buttons up to sit on the image */
+    transform: translateY(-50%);
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.8);
+    color: #5b21b6;
+    border: 2px solid #5b21b6;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.carousel-btn:hover { background: #5b21b6; color: white; }
+.carousel-btn.prev { left: 10px; }
+.carousel-btn.next { right: 10px; }
+
+        /* === PIXEL FARMING BACKGROUND STYLES === */
+        .farming-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(10px);
-            z-index: 100;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 1rem;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-            overflow-y: auto;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+            /* Subtle dot grid pattern */
+            background-image: 
+                radial-gradient(#d8b4fe 1px, transparent 1px),
+                radial-gradient(#d8b4fe 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+            opacity: 0.3;
         }
-        .lightbox.show {
-            opacity: 1;
-            visibility: visible;
-        }
-        .lightbox-content {
-            position: relative;
-            margin: auto;
-        }
-        .lightbox-content img {
-            max-width: 90vw;
-            max-height: 90vh;
-            object-fit: contain;
-            border-radius: 16px;
-            border: 4px solid white;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-        .lightbox-close {
+
+        .pixel-deco {
             position: absolute;
-            top: -0.5rem;
-            right: -0.5rem;
-            width: 40px;
-            height: 40px;
-            background-color: white;
-            color: #a855f7;
-            border-radius: 50%;
-            border: none;
-            font-size: 24px;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            transition: all 0.2s ease;
-            z-index: 101;
+            font-size: 2rem;
+            opacity: 0.4; /* Fade them out so they are subtle */
+            animation: float 6s ease-in-out infinite;
+            user-select: none;
+            filter: grayscale(20%); /* Make them slightly muted to fit the aesthetic */
         }
-        .lightbox-close:hover {
-            transform: scale(1.1) rotate(90deg);
-            background-color: #f3e8ff;
+
+        /* Varied floating animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        @keyframes float-delay {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
     </style>
 </head>
-<body class="text-gray-700">
+<body>
 
-    <!-- ========== HEADER / NAVIGATION ========== -->
-    <header class="fixed top-0 left-0 w-full bg-white/80 backdrop-blur-md z-50">
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <div class="flex-shrink-0">
-                    <a href="index.html#home" class="text-3xl font-bold text-purple-600">
-                        🏵️ Davina
-                    </a>
-                </div>
-                <div class="hidden md:flex md:items-center md:space-x-4">
-                    <a href="index.html#home" class="bubbly-button">Home</a>
-                    <a href="index.html#about" class="bubbly-button">About Me</a>
-                    <a href="index.html#projects" class="bubbly-button">Projects</a>
-                    <a href="index.html#contact" class="bubbly-button bubbly-button-primary">Contact</a>
-                </div>
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-lg text-purple-500 bg-white/50 hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-purple-500">
-                        <span class="sr-only">Open main menu</span>
-                        <svg id="hamburger-icon" class="block h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                        <svg id="close-icon" class="hidden h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </nav>
-        <div id="mobile-menu" class="md:hidden hidden bg-white/95 backdrop-blur-md shadow-lg rounded-b-2xl">
-            <div class="px-4 pt-2 pb-4 space-y-2">
-                <a href="index.html#home" class="block text-lg font-medium text-purple-600 hover:bg-purple-50 px-4 py-3 rounded-xl">Home</a>
-                <a href="index.html#about" class="block text-lg font-medium text-purple-600 hover:bg-purple-50 px-4 py-3 rounded-xl">About Me</a>
-                <a href="index.html#projects" class="block text-lg font-medium text-purple-600 hover:bg-purple-50 px-4 py-3 rounded-xl">Projects</a>
-                <a href="index.html#contact" class="block text-lg font-medium text-white bg-purple-500 hover:bg-purple-600 px-4 py-3 rounded-xl">Contact</a>
-            </div>
+    <div id="loader-overlay">
+        <span class="loader-text">System Initializing...</span>
+        <div class="loader-bar-container">
+            <div class="loader-bar"></div>
         </div>
-    </header>
+    </div>
 
-    <!-- ========== MAIN CONTENT ========== -->
-    <main>
-        <!-- ========== PROJECT 6 (ART GALLERY) DETAIL PAGE ========== -->
-        <section id="project-6-details" class="min-h-screen py-24 bg-purple-50/50 pt-32">
-            <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="bubbly-card p-8 md:p-12">
-                    <h2 class="text-4xl sm:text-5xl font-bold text-center text-purple-700 mb-4 title-shadow">
-                        Traditional & Digital Art Gallery
-                    </h2>
-                    <p class="text-xl text-gray-600 text-center max-w-2xl mx-auto mb-12">
-                        A collection of my artwork, from traditional sketches to digital illustrations. Click on any image to see it in full detail.
+    <div class="farming-bg">
+        <div class="pixel-deco" style="top: 15%; left: 5%; animation-duration: 5s;">🌽</div>
+        <div class="pixel-deco" style="top: 25%; right: 8%; animation-duration: 7s;">🥕</div>
+        <div class="pixel-deco" style="bottom: 20%; left: 8%; animation-duration: 6s;">🥬</div>
+        <div class="pixel-deco" style="bottom: 40%; right: 5%; animation-duration: 8s;">🍅</div>
+        <div class="pixel-deco" style="top: 45%; left: 3%; font-size: 3rem; animation-name: float-delay;">🚜</div>
+        <div class="pixel-deco" style="top: 10%; right: 25%; font-size: 2.5rem; opacity: 0.2;">☁️</div>
+        <div class="pixel-deco" style="bottom: 10%; right: 30%; font-size: 1.5rem;">🥔</div>
+        <div class="pixel-deco" style="top: 60%; right: 2%; animation-duration: 9s;">🍆</div>
+        <div class="pixel-deco" style="bottom: 5%; left: 25%; font-size: 2rem; opacity: 0.2;">☁️</div>
+    </div>
+
+    <nav class="fixed top-8 left-1/2 -translate-x-1/2 z-50 w-auto max-w-[95vw]">
+        <div class="nav-capsule px-2 py-1 flex items-center justify-between gap-1 sm:gap-4 overflow-x-auto scrollbar-hide mx-auto">
+            <a href="/" class="font-pixel-capsule nav-link whitespace-nowrap">Home</a>
+            <a href="/#about" class="font-pixel-capsule nav-link whitespace-nowrap">About</a>
+            <a href="/#activities" class="font-pixel-capsule nav-link whitespace-nowrap">Activities</a>
+            <a href="/#projects" class="font-pixel-capsule nav-link whitespace-nowrap">Projects</a>
+            <a href="/resume.pdf" class="font-pixel-capsule nav-link whitespace-nowrap">Resume</a>
+            <a href="/#contact" class="font-pixel-capsule nav-btn-contact whitespace-nowrap ml-2">Contact</a>
+        </div>
+    </nav>
+
+    <main class="page-content pt-32 pb-16 px-4">
+        <div class="max-w-5xl mx-auto">
+            <div class="system-window">
+                <div class="window-title-bar">
+                    <span class="window-title">CropIt.exe</span>
+                    <div class="window-controls">
+                        <span class="window-btn minimize">_</span>
+                        <span class="window-btn maximize">□</span>
+                        <span class="window-btn close">×</span>
+                    </div>
+                </div>
+                
+                <div class="window-content">
+                    <h1 class="pixel-font text-lg md:text-3xl text-center text-dream-primary mb-2 title-shadow">
+                        CropIt
+                    </h1>
+                    <p class="mono-font text-sm md:text-base text-dream-muted text-center max-w-3xl mx-auto mb-8 font-semibold">
+                        Regenerative Insights for Real-World Profits 🌾🚀
                     </p>
                     
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-
-                        <div class="gallery-item">
-                            <img src="https://placehold.co/600x800/dbeafe/1e40af?text=Digital+Painting&font=fredoka" alt="Art 1">
-                        </div>
-
-                        <div class="gallery-item">
-                            <img src="https://placehold.co/600x400/fee2e2/991b1b?text=Sketchbook+Page&font=fredoka" alt="Art 2">
-                        </div>
-
-                        <div class="gallery-item">
-                            <img src="https://placehold.co/600x600/f3e8ff/581c87?text=Character+Design&font=fredoka" alt="Art 3">
-                        </div>
-
-                        <div class="gallery-item">
-                            <img src="https://placehold.co/600x400/ecfccb/4d7c0f?text=Landscape+Study&font=fredoka" alt="Art 4">
-                        </div>
-
-                        <div class="gallery-item">
-                            <img src="https://placehold.co/600x800/ffedd5/9a3412?text=Portrait&font=fredoka" alt="Art 5">
-                        </div>
-
-                        <div class="gallery-item">
-                            <img src="https://placehold.co/600x600/e0e7ff/3730a3?text=Abstract+Art&font=fredoka" alt="Art 6">
-                        </div>
-                        
-                        
+                    <div class="mb-8 rounded-lg overflow-hidden border-2 border-dream-primary/30 aspect-video shadow-lg">
+                        <iframe 
+                            class="w-full h-full"
+                            src="https://www.youtube.com/embed/HrpdoehIaiY?rel=0" 
+                            title="CropIt Demo" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
                     </div>
 
-                    <div class="text-center mt-12">
-                        <a href="index.html#projects" class="bubbly-button bubbly-button-primary text-lg">
+                    <div class="grid grid-cols-1 gap-6 mb-8">
+                        
+                        <div class="system-window" style="background: rgba(108, 93, 211, 0.05);">
+                            <div class="window-title-bar">
+                                <span class="window-title">inspiration.txt</span>
+                            </div>
+                            <div class="window-content">
+                                <h2 class="pixel-font text-base text-dream-primary mb-3">> Inspiration</h2>
+                                <div class="mono-font text-sm text-dream-text leading-relaxed space-y-4">
+                                    <p>Our journey started with a love for food, climate action, and the powerful stories of Gabe Brown, Russell Hedrick, and real working farms. Watching <em>Nature's Balance: The Art of Regenerative Farming</em> and <em>Chef’s Table</em>, we saw firsthand that regenerative agriculture is not only possible, it’s the future economically and ecologically.</p>
+                                    <p>For years, climate targets have fallen short often because “sustainability” felt like a cost, not an opportunity. Cropit is built to flip that script by showing how regenerative agriculture can be a profitable path for farms and food businesses.</p>
+                                    
+                                    <p class="font-bold text-dream-primary mt-4">What really grabbed us:</p>
+                                    <ul class="space-y-3">
+                                        <li class="flex items-start gap-3">
+                                            <span class="text-dream-primary mt-1 shrink-0">✧</span>
+                                            <span><strong>Gabe Brown’s 6 Principles:</strong> context, least disturbance, soil armor, diversity, living root, animal integration—are real-world wisdom, not just theory.</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <span class="text-dream-primary mt-1 shrink-0">✧</span>
+                                            <span><strong>Russell Hedrick’s data:</strong> over $62,000 saved in a year with numbers to prove it, not just hope!</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <span class="text-dream-primary mt-1 shrink-0">✧</span>
+                                            <span><strong>The relentless challenge of monocropping:</strong> most US row crop farms plant just 2–3 crops, nowhere near the diversity science recommends.</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <span class="text-dream-primary mt-1 shrink-0">✧</span>
+                                            <span><strong>Our team’s foodie spirit:</strong> believing every great meal starts with soil health.</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="system-window" style="background: rgba(108, 93, 211, 0.05);">
+                            <div class="window-title-bar">
+                                <span class="window-title">what_it_does.md</span>
+                            </div>
+                            <div class="window-content">
+                                <h2 class="pixel-font text-base text-dream-primary mb-3">> 🤖 What It Does</h2>
+                                <div class="mono-font text-sm text-dream-text leading-relaxed">
+                                    <p class="mb-4">Cropit is your farm’s collaborative dashboard and “helping hand” for all things regenerative. Here’s the magic:</p>
+                                    <ul class="space-y-3">
+                                        <li class="flex items-start gap-3">
+                                            <span class="text-dream-primary mt-1 shrink-0">✧</span>
+                                            <span><strong>Integrates real-world data</strong> (USDA, OpenWeather, live web scraping via Gemini API, satellite sources) to power actionable farm analytics.</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <span class="text-dream-primary mt-1 shrink-0">✧</span>
+                                            <span><strong>Tracks profit, diversity, and resilience</strong> for every field. See the “Eco-Wallet”: money saved, risks avoided, new revenue streams (like carbon credits).</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <span class="text-dream-primary mt-1 shrink-0">✧</span>
+                                            <span><strong>Gives proactive insights</strong> how to boost soil health, manage crop rotations, and prepare for weather or market changes.</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <span class="text-dream-primary mt-1 shrink-0">✧</span>
+                                            <span><strong>Visualizes advanced metrics:</strong> Fungal:Bacterial Ratio, real-time Brix (sap) readings, crop rotation diversity, water-holding capacity, and more.</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <span class="text-dream-primary mt-1 shrink-0">✧</span>
+                                            <span><strong>Not just a dashboard.</strong> Cropit is a digital partner, helping you make informed, profitable, sustainable choices, not just handing down “advice.”</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="system-window" style="background: rgba(239, 68, 68, 0.05);">
+    <div class="window-title-bar">
+        <span class="window-title">crisis_report.txt</span>
+    </div>
+    <div class="window-content">
+        <h2 class="pixel-font text-base text-red-400 mb-3">> Problem: Farming at a Breaking Point</h2>
+        <div class="mono-font text-sm text-dream-text leading-relaxed space-y-4">
+            <p><strong>The Reality:</strong> American farmers are under serious pressure. Farm bankruptcy filings have been rising again, with hundreds of family farms seeking protection as input costs stay high and margins stay thin.</p>
+            <p>Surveys show a large share of farmers believe we are on the verge of a farming crisis. While regenerative practices can help long-term, they often require upfront costs and risks that farmers running on thin margins simply cannot absorb.</p>
+            <p><strong>The Result:</strong> Farmers do the "rational" thing: they monocrop, chase short-term market signals, and hope to make it to next season.</p>
+            
+            <h3 class="pixel-font text-sm text-dream-primary mt-6 mb-2">> The Vision</h3>
+            <p>CropIt starts from a simple idea: <em>If predictive AI can show farmers when sustainability is also the most profitable option, change becomes a spreadsheet decision instead of a leap of faith.</em></p>
+            <p>We aim to help farmers:</p>
+            <ul class="list-disc pl-5 space-y-1">
+                <li>Stay profitable in volatile markets.</li>
+                <li>Shift toward regenerative practices when numbers support the move.</li>
+                <li>Survive the current crisis without burning out their land.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="system-window" style="background: rgba(16, 185, 129, 0.05);">
+    <div class="window-title-bar">
+        <span class="window-title">design_manifesto.md</span>
+    </div>
+    <div class="window-content">
+        <h2 class="pixel-font text-base text-green-400 mb-3">> Design Philosophy</h2>
+        <p class="mono-font text-sm text-dream-text italic mb-4">
+            "Designed less like a Silicon Valley finance tool and more like a calm copilot for a very tired person who has been awake since 4 a.m."
+        </p>
+        
+        <div class="mono-font text-sm text-dream-text space-y-4">
+            <div>
+                <strong class="text-dream-primary block mb-1">1. Farmer-First Language</strong>
+                <p>We use terms like "fields," "pest risk," and "rainfall window," not abstract KPIs. The interface speaks in scenarios: <em>"If you delay planting by a week, your risk changes like this."</em></p>
+            </div>
+            <div>
+                <strong class="text-dream-primary block mb-1">2. Hands are Busy, Attention is Limited</strong>
+                <p>Includes an <strong>audio briefing</strong> so farmers can listen while driving a tractor. Large 48-pixel touch targets are sized specifically for gloved hands.</p>
+            </div>
+            <div>
+                <strong class="text-dream-primary block mb-1">3. Dark at 5 a.m., Blinding at 2 p.m.</strong>
+                <p>A three-mode theme optimizes for pre-dawn cab lighting (soft charcoal to reduce eye strain) and bright outdoor use (high contrast).</p>
+            </div>
+            <div>
+                <strong class="text-dream-primary block mb-1">4. Accessibility & Calm</strong>
+                <p>Information is layered using progressive disclosure. The goal is to reduce the number of times a farmer has to ask, <em>"What is this thing trying to tell me?"</em></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="system-window" style="background: rgba(59, 130, 246, 0.05);">
+    <div class="window-title-bar">
+        <span class="window-title">ai_logic.log</span>
+    </div>
+    <div class="window-content">
+        <h2 class="pixel-font text-base text-blue-400 mb-3">> AI In The Loop</h2>
+        <div class="mono-font text-sm text-dream-text leading-relaxed space-y-4">
+            <p><strong>Not "Robot Farmer", More "Very Fast Intern"</strong></p>
+            <p>AI in CropIt has one job: do math and paperwork faster so humans can make better decisions. It does <em>not</em> decide what a farm should become.</p>
+            
+            <ul class="list-none space-y-2 mt-2">
+                <li class="flex gap-2">
+                    <span class="text-blue-400">>></span>
+                    <span><strong>Predictive Analytics:</strong> Models yields and costs to compare "business as usual" vs. regenerative options.</span>
+                </li>
+                <li class="flex gap-2">
+                    <span class="text-blue-400">>></span>
+                    <span><strong>Scenario Framing:</strong> Instead of commands, it offers context: <em>"Here are three scenarios, one of which both pays your bills and helps your soil."</em></span>
+                </li>
+                <li class="flex gap-2">
+                    <span class="text-blue-400">>></span>
+                    <span><strong>Bureaucracy Killer:</strong> AI scans and pre-fills routine compliance forms (drag-and-drop PDFs), flagging sensitive info for human review.</span>
+                </li>
+            </ul>
+
+            <h3 class="pixel-font text-sm text-blue-400 mt-6 mb-2">> Interface Structure</h3>
+            <ul class="list-disc pl-5 space-y-1">
+                <li><strong>Dashboard:</strong> "Am I okay right now?" (Metric cards, yield forecast, sensor feed).</li>
+                <li><strong>Fields Map:</strong> "Where is the problem?" (Highlights outliers like nitrogen stress).</li>
+                <li><strong>Weather:</strong> "When should I act?" (Suggests practical windows for spraying/planting).</li>
+                <li><strong>Sustainability:</strong> "Can I afford to be better?" (Side-by-side economic vs. ecological comparison).</li>
+            </ul>
+        </div>
+    </div>
+</div>
+                        <div class="system-window" style="background: rgba(108, 93, 211, 0.1);">
+                            <div class="window-title-bar">
+                                <span class="window-title">how_we_built_it.log</span>
+                            </div>
+                            <div class="window-content">
+                                <h2 class="pixel-font text-base text-dream-primary mb-3">> 🛠️ How We Built It</h2>
+                                <div class="mono-font text-sm text-dream-text leading-relaxed space-y-4">
+                                    <p><strong>Stack:</strong> Next.js, Python, Gemini API (web scraping/insights), ElevenLabs (audio alerts), OpenWeather, USDA agricultural data, Amazon Nova (contextual AI insights), Knot (transaction analytics), Capital One API (financial tools).</p>
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                                        <div class="p-4 rounded border border-dream-primary/30" style="background: rgba(168, 85, 247, 0.05);">
+                                            <strong class="text-dream-primary block mb-2">UI/UX:</strong>
+                                            <p class="leading-relaxed">Crafted with Figma iterations, prioritizing clarity for high-stakes decisions.</p>
+                                        </div>
+                                        <div class="p-4 rounded border border-dream-primary/30" style="background: rgba(168, 85, 247, 0.05);">
+                                            <strong class="text-dream-primary block mb-2">Data scraping:</strong>
+                                            <p class="leading-relaxed">Leveraged Gemini’s API to pull fresh web/crop/soil/weather data.</p>
+                                        </div>
+                                        <div class="p-4 rounded border border-dream-primary/30" style="background: rgba(168, 85, 247, 0.05);">
+                                            <strong class="text-dream-primary block mb-2">Analytics:</strong>
+                                            <p class="leading-relaxed">Developed “Eco-Wallet” cost models leveraging real farm data calculations.</p>
+                                        </div>
+                                        <div class="p-4 rounded border border-dream-primary/30" style="background: rgba(168, 85, 247, 0.05);">
+                                            <strong class="text-dream-primary block mb-2">Voice & Context:</strong>
+                                            <p class="leading-relaxed">ElevenLabs reads alerts; Amazon Nova automates deep-dive research.</p>
+                                        </div>
+                                    </div>
+                                    <p class="mt-2"><strong>Financials:</strong> Knot's API tracks transactions, Capital One's API enables financial benchmarking.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="system-window" style="background: rgba(108, 93, 211, 0.05);">
+                            <div class="window-title-bar">
+                                <span class="window-title">challenges.log</span>
+                            </div>
+                            <div class="window-content">
+                                <h2 class="pixel-font text-base text-dream-primary mb-3">> 🚧 Challenges We Ran Into</h2>
+                                <ul class="mono-font text-sm text-dream-text space-y-3">
+                                    <li class="flex items-start gap-3">
+                                            <span class="text-dream-primary mt-1 shrink-0">✧</span>
+                                            <span><strong>API integration:</strong> Combining many data streams (USDA, weather, web scraping) presented rate limits and inconsistent data schemas.</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                            <span class="text-dream-primary mt-1 shrink-0">✧</span>
+                                            <span><strong>Data overload:</strong> Modern farming generates mountains of data. Our toughest task was making this simple and actionable.</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                            <span class="text-dream-primary mt-1 shrink-0">✧</span>
+                                            <span><strong>Communicating complexity:</strong> Regenerative ag is science + creativity. Making advanced analytics enjoyable was a constant balance.</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                            <span class="text-dream-primary mt-1 shrink-0">✧</span>
+                                            <span><strong>Climate variability:</strong> Farming data is at the mercy of the weather. We designed not for “average” but for the wild, unpredictable future.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="system-window" style="background: rgba(108, 93, 211, 0.05);">
+                            <div class="window-title-bar">
+                                <span class="window-title">accomplishments.txt</span>
+                            </div>
+                            <div class="window-content">
+                                <h2 class="pixel-font text-base text-dream-primary mb-3">> 🏅 Accomplishments</h2>
+                                <ul class="mono-font text-sm text-dream-text space-y-3">
+                                    <li class="flex items-start gap-3">
+                                            <span class="text-dream-primary mt-1 shrink-0">✧</span>
+                                            <span><strong>Live dashboard:</strong> Working, demo-ready, and flexible to plug in any farmer’s data.</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                            <span class="text-dream-primary mt-1 shrink-0">✧</span>
+                                            <span><strong>Dynamic "Eco-Wallet":</strong> Every cost-saving, every new revenue source, visible at a glance.</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                            <span class="text-dream-primary mt-1 shrink-0">✧</span>
+                                            <span><strong>Multi-source data blending:</strong> USDA, web, weather unified for actionable insights.</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                            <span class="text-dream-primary mt-1 shrink-0">✧</span>
+                                            <span><strong>Designed with empathy:</strong> Listening to the real-world constraints that fields, markets, and nature impose.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="system-window h-full" style="background: rgba(108, 93, 211, 0.05);">
+                                <div class="window-title-bar"><span class="window-title">learned.md</span></div>
+                                <div class="window-content">
+                                    <h2 class="pixel-font text-base text-dream-primary mb-3">> 📚 What We Learned</h2>
+                                    <ul class="mono-font text-sm text-dream-text space-y-3">
+                                        <li class="flex items-start gap-3">
+                                            <span class="text-dream-primary mt-1 shrink-0">✧</span>
+                                            <span><strong>Diversity is rare but essential:</strong> Dashboard encourages crop variety.</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <span class="text-dream-primary mt-1 shrink-0">✧</span>
+                                            <span><strong>Profit isn’t yield alone:</strong> Sometimes spending less is smarter business.</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <span class="text-dream-primary mt-1 shrink-0">✧</span>
+                                            <span><strong>Let data serve, not rule:</strong> "Right insights, right moment."</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <span class="text-dream-primary mt-1 shrink-0">✧</span>
+                                            <span><strong>Collaboration beats command:</strong> Tech should be a partner, not a boss.</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="system-window h-full" style="background: rgba(108, 93, 211, 0.05);">
+                                <div class="window-title-bar"><span class="window-title">roadmap.json</span></div>
+                                <div class="window-content">
+                                    <h2 class="pixel-font text-base text-dream-primary mb-3">> 🔮 What’s Next</h2>
+                                    <ul class="mono-font text-sm text-dream-text space-y-3">
+                                        <li class="flex items-start gap-3">
+                                            <span class="text-dream-primary mt-1 shrink-0">✧</span>
+                                            <span>Deeper weather/soil mapping powered by AI agents.</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <span class="text-dream-primary mt-1 shrink-0">✧</span>
+                                            <span>More cross-platform features (text/voice feeds).</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <span class="text-dream-primary mt-1 shrink-0">✧</span>
+                                            <span>Expand Cropit as a “regenerative social network”.</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <span class="text-dream-primary mt-1 shrink-0">✧</span>
+                                            <span>Continue blending passion for food, ecosystems, and prosperity.</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    <div class="system-window mt-12 mb-8" style="background: rgba(108, 93, 211, 0.05);">
+    <div class="window-title-bar">
+        <span class="window-title">iteration_log.exe</span>
+    </div>
+    <div class="window-content p-0"> 
+        <h2 class="pixel-font text-base text-dream-primary mb-3 mt-6 ml-4">> Iteration</h2>
+        <div class="carousel-container border-none bg-transparent">
+            
+            <div class="carousel-slide active">
+                <div class="carousel-image-container" onclick="openLightbox(this.querySelector('img').src)">
+                    <img src="/CropIt/CropitDavina.png" alt="Davina's CropIt Breakdown">
+                </div>
+                <div class="carousel-caption">
+                    <h3 class="pixel-font text-lg text-dream-primary mb-2">Davina's CropIt Breakdown</h3>
+                    <p class="mono-font text-sm leading-relaxed">
+                  My diagram visualizes the "CropIt" platform's theory of change, mapping the user journey from a "Current Crisis" of failing margins and short-term survivalism to a "Sustainable Future" of long-term profitability. It defines the platform's role not as a robotic replacement but as a predictive AI assistant, a "Very Fast Intern," that helps farmers overcome the dilemma of "Profit Today vs. Soil Tomorrow" by framing regenerative choices as calculated "spreadsheet decisions" rather than financial risks. The system architecture highlights a "Farmer-First" UX philosophy featuring accessible mobile interfaces with large touch targets and day/night modes, alongside a "Human-in-the-Loop" compliance workflow that automates bureaucracy while keeping the farmer in control. Ultimately, the schematic demonstrates how the software bridges the gap between immediate economic pressure and ecological resilience, enabling the user to achieve a state where they possess "profit and soil health together".
+                    </p>
+                </div>
+            </div>
+
+            <div class="carousel-slide">
+                <div class="carousel-image-container" onclick="openLightbox(this.querySelector('img').src)">
+                    <img src="/CropIt/SystemArchitecture.png" alt="System Architecture">
+                </div>
+                <div class="carousel-caption">
+                    <h3 class="pixel-font text-lg text-dream-primary mb-2">System Architecture Diagram</h3>
+                    <p class="mono-font text-sm leading-relaxed">
+                    The system architecture diagram illustrates the comprehensive infrastructure of CropIt, showcasing the integration of various APIs and data sources that power the platform. Key components include data ingestion from USDA databases, real-time weather updates via OpenWeather API, and web scraping capabilities through Gemini API. The architecture also highlights the use of ElevenLabs for audio alerts and Amazon Nova for contextual AI insights. The front-end is built with Next.js, ensuring a responsive and user-friendly interface, while back-end processes handle data analytics and eco-wallet calculations. This diagram serves as a blueprint for understanding how CropIt seamlessly combines multiple technologies to deliver actionable insights for regenerative agriculture.
+                    </p>
+                </div>
+            </div>
+
+            <div class="carousel-slide">
+                <div class="carousel-image-container" onclick="openLightbox(this.querySelector('img').src)">
+                    <img src="/CropIt/NewLandingPage.png" alt="New Landing Page">
+                </div>
+                <div class="carousel-caption">
+                    <h3 class="pixel-font text-lg text-dream-primary mb-2">New Landing Page</h3>
+                    <p class="mono-font text-sm leading-relaxed">
+                        The UI/UX strategy for the revamped CropIt landing page is grounded in User-Centered Design (UCD) principles which specifically target the reduction of cognitive load for agribusiness professionals facing high-stakes decisions. By adopting a dark-mode aesthetic with a minimalistic grid overlay, the interface minimizes visual noise to enhance data legibility and reduce eye strain which is a critical factor for users monitoring complex metrics over extended periods. The visual hierarchy is rigorously structured through scale and contrast by employing a prominent sans-serif typography for the value proposition to immediately establish semantic salience, while the strategic use of the color green serves as a signifier for both the sustainability domain and the primary Call-to-Action (CTA) to guide the user's focal point efficiently towards conversion. This iterative design evolution reflects a heuristic prioritization of clarity and efficiency that transforms complex agricultural intelligence into an accessible and intuitive digital experience aligned with the mental models of modern and data-driven farmers.
+                    </p>
+                </div>
+            </div>
+
+            <div class="carousel-slide">
+                <div class="carousel-image-container" onclick="openLightbox(this.querySelector('img').src)">
+                    <img src="/CropIt/NewInterface.png" alt="New Interface">
+                </div>
+                <div class="carousel-caption">
+                    <h3 class="pixel-font text-lg text-dream-primary mb-2">New Interface</h3>
+                    <p class="mono-font text-sm leading-relaxed">
+                    The new interface design for CropIt emphasizes a clean, modern aesthetic with a focus on usability and accessibility. The layout is optimized for both desktop and mobile devices, ensuring seamless navigation across platforms. Key features include a responsive grid system, intuitive menu structures, and streamlined workflows that reduce user friction. The interface also incorporates subtle animations and transitions to enhance the user experience without overwhelming the core functionality.
+                    </p>
+                </div>
+            </div>
+
+            <div class="carousel-slide">
+                <div class="carousel-image-container" onclick="openLightbox(this.querySelector('img').src)">
+                    <img src="/CropIt/WeatherPage.png" alt="Weather Page">
+                </div>
+                <div class="carousel-caption">
+                    <h3 class="pixel-font text-lg text-dream-primary mb-2">Weather Page</h3>
+                    <p class="mono-font text-sm leading-relaxed">
+                    The Weather Page within CropIt provides real-time meteorological data and forecasts tailored for agricultural decision-making from their location data. Users can access detailed weather reports, historical data visualizations, and customizable alerts to stay informed about critical weather events that may impact their crops.
+                    </p>
+                </div>
+            </div>
+
+            <div class="carousel-slide">
+                <div class="carousel-image-container" onclick="openLightbox(this.querySelector('img').src)">
+                    <img src="/CropIt/DocumentVault.png" alt="Document Vault">
+                </div>
+                <div class="carousel-caption">
+                    <h3 class="pixel-font text-lg text-dream-primary mb-2">Document Vault</h3>
+                    <p class="mono-font text-sm leading-relaxed">
+                    The Document Vault within CropIt provides a centralized repository for all agricultural documentation, including field notes, crop management plans, and regulatory compliance records. Users can securely store, organize, and retrieve documents with advanced search capabilities and version control features.
+                    </p>
+                </div>
+            </div>
+
+            <div class="carousel-slide">
+                <div class="carousel-image-container" onclick="openLightbox(this.querySelector('img').src)">
+                    <img src="/CropIt/FieldsPage.png" alt="Fields Page">
+                </div>
+                <div class="carousel-caption">
+                    <h3 class="pixel-font text-lg text-dream-primary mb-2">Fields Page</h3>
+                    <p class="mono-font text-sm leading-relaxed">
+                    The Fields Page within CropIt provides a comprehensive view of all agricultural fields, including detailed maps, soil analysis, and crop health indicators. Users can manage field-specific data, track planting schedules, and monitor growth patterns to optimize yield and resource allocation. There is also thermal health index visualization for better crop monitoring. We specifically chose the location of Salinas, California for the demo farm due to its reputation as the "Salad Bowl of the World," known for its intensive vegetable production and progressive farming practices, making it an ideal setting to showcase CropIt's capabilities in supporting sustainable agriculture. Furthermore, it is the closest farm to San Francisco, where we participated in the Dedalus Labs Break In Program.
+                    </p>
+                </div>
+            </div>
+
+            <div class="carousel-slide">
+                <div class="carousel-image-container" onclick="openLightbox(this.querySelector('img').src)">
+                    <img src="/CropIt/AIFarmAssistant.png" alt="AI Farm Assistant">
+                </div>
+                <div class="carousel-caption">
+                    <h3 class="pixel-font text-lg text-dream-primary mb-2">AI Farm Assistant</h3>
+                    <p class="mono-font text-sm leading-relaxed">
+                    The AI Farm Assistant within CropIt provides intelligent recommendations and insights for crop management, leveraging machine learning algorithms to analyze field data, weather patterns, and historical yields. Users can receive personalized advice on planting schedules, irrigation needs, and pest control strategies to maximize productivity.
+                    </p>
+                </div>
+            </div>
+
+            <button class="carousel-btn prev" onclick="changeSlide(-1)">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="carousel-btn next" onclick="changeSlide(1)">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+
+        </div>
+    </div>
+</div>
+
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+                        <a href="https://devpost.com/software/cropit" target="_blank" rel="noopener noreferrer" class="keyboard-btn primary">
+                            <i class="fas fa-play mr-2"></i> View on Devpost
+                        </a>
+                        <a href="https://github.com/swetha-ganeshbabu/crop" target="_blank" rel="noopener noreferrer" class="keyboard-btn">
+                            <i class="fab fa-github mr-2"></i> View Source
+                        </a>
+                    </div>
+
+                    <div class="text-center">
+                        <a href="/#projects" class="keyboard-btn primary internal-link">
                             <i class="fas fa-arrow-left mr-2"></i> Back to Projects
                         </a>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
     </main>
 
-    <div id="lightbox" class="lightbox">
-        <div class="lightbox-content">
-            <button id="lightbox-close" class="lightbox-close">&times;</button>
-            <img id="lightbox-img" src="" alt="Enlarged gallery view">
-        </div>
-    </div>
-
-
-    <!-- ========== FOOTER ========== -->
-    <footer class="bg-white/80 border-t border-purple-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <p class="text-center text-lg text-purple-600">
-                &copy; 2025 Davina. Made with 💝 and code.
-            </p>
-        </div>
+    <footer class="dreamos-footer">
+        <p>&copy; 2025 Davina // DreamOS v1.0</p>
     </footer>
-
-    <!-- ========== JAVASCRIPT ========== -->
+<script src="public/music-loader.js"></script>
     <script>
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const hamburgerIcon = document.getElementById('hamburger-icon');
-        const closeIcon = document.getElementById('close-icon');
+        // Boot loader
+        const loader = document.getElementById('loader-overlay');
+        const pageContent = document.querySelector('.page-content');
+        
+        const hideLoader = () => {
+            loader.classList.add('fade-out');
+            pageContent.classList.add('loaded');
+            setTimeout(() => {
+                loader.classList.add('hidden');
+            }, 500);
+        };
 
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            hamburgerIcon.classList.toggle('hidden');
-            closeIcon.classList.toggle('hidden');
+        window.addEventListener('load', () => {
+            setTimeout(hideLoader, 1500);
         });
 
-        const mobileLinks = document.querySelectorAll('#mobile-menu a, #mobile-menu button');
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-                hamburgerIcon.classList.remove('hidden');
-                closeIcon.classList.add('hidden');
+        // Max timeout failsafe
+        setTimeout(hideLoader, 3000);
+
+        // Page exit transition
+        document.querySelectorAll('a.internal-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const href = link.getAttribute('href');
+                if (href && !href.startsWith('http') && !href.startsWith('mailto:')) {
+                    e.preventDefault();
+                    pageContent.classList.add('exit');
+                    pageContent.classList.remove('loaded');
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 400);
+                }
             });
         });
 
-        const galleryItems = document.querySelectorAll('.gallery-item');
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-        const lightboxClose = document.getElementById('lightbox-close');
+        // Carousel Logic
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
 
-        galleryItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const imgSrc = item.querySelector('img').src;
-                lightboxImg.src = imgSrc;
-                lightbox.classList.add('show');
-            });
-        });
-
-        function closeLightbox() {
-            lightbox.classList.remove('show');
+        function changeSlide(direction) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide += direction;
+            if (currentSlide >= slides.length) currentSlide = 0;
+            if (currentSlide < 0) currentSlide = slides.length - 1;
+            slides[currentSlide].classList.add('active');
         }
-
-        lightboxClose.addEventListener('click', closeLightbox);
-        lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox) {
-                closeLightbox();
-            }
-        });
+    
     </script>
 
 </body>
