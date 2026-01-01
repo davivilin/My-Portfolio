@@ -1,0 +1,549 @@
+/* ========================================
+   DreamOS - Ethereal Mainframe Theme
+   Shared Styles for Project Pages
+   ======================================== */
+
+/* Google Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Fira+Code:wght@400;500;600&family=VT323&display=swap');
+
+/* ========== ROOT VARIABLES ========== */
+:root {
+  --dream-lavender: #E0D4FC;
+  --dream-cyan: #D4F1FC;
+  --dream-pink: #F9BADE;
+  --dream-periwinkle: #6C5DD3;
+  --dream-neon: #7F6DF2;
+  --dream-white: rgba(255, 255, 255, 0.6);
+  --dream-shadow: rgba(108, 93, 211, 0.3);
+}
+
+/* ========== BASE STYLES ========== */
+body {
+  font-family: 'Fira Code', 'Space Mono', monospace;
+  background: linear-gradient(135deg, var(--dream-lavender) 0%, var(--dream-cyan) 50%, var(--dream-pink) 100%);
+  min-height: 100vh;
+  cursor: crosshair;
+  overflow-x: hidden;
+}
+
+/* Perspective Grid Background */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(rgba(108, 93, 211, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(108, 93, 211, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ========== TYPOGRAPHY ========== */
+.pixel-font {
+  font-family: 'Press Start 2P', cursive;
+}
+
+.mono-font {
+  font-family: 'Fira Code', monospace;
+}
+
+.title-shadow {
+  text-shadow: 2px 2px 0px var(--dream-shadow);
+}
+
+/* ========== SYSTEM WINDOW COMPONENT ========== */
+.system-window {
+  background: var(--dream-white);
+  backdrop-filter: blur(12px);
+  border: 2px solid white;
+  border-radius: 12px;
+  box-shadow: 4px 4px 0px var(--dream-shadow);
+  overflow: hidden;
+}
+
+.window-title-bar {
+  background: linear-gradient(90deg, var(--dream-lavender), var(--dream-cyan));
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+.window-title {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  color: var(--dream-periwinkle);
+  letter-spacing: 1px;
+}
+
+.window-controls {
+  display: flex;
+  gap: 6px;
+}
+
+.window-btn {
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(108, 93, 211, 0.3);
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.window-btn:hover {
+  transform: scale(1.1);
+}
+
+.window-btn.minimize {
+  background: #a5f3fc;
+  color: #0e7490;
+}
+
+.window-btn.maximize {
+  background: #bbf7d0;
+  color: #166534;
+}
+
+.window-btn.close {
+  background: #fecaca;
+  color: #dc2626;
+}
+
+.window-content {
+  padding: 24px;
+}
+
+@media (min-width: 768px) {
+  .window-content {
+    padding: 32px 48px;
+  }
+}
+
+/* ========== DOCK NAVIGATION ========== */
+.dock-nav {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  background: var(--dream-white);
+  backdrop-filter: blur(16px);
+  border: 2px solid white;
+  border-radius: 9999px;
+  padding: 8px 16px;
+  box-shadow: 4px 4px 0px var(--dream-shadow);
+}
+
+.dock-items {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dock-item {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 8px;
+  color: var(--dream-periwinkle);
+  padding: 8px 16px;
+  border-radius: 9999px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  text-decoration: none;
+  display: inline-block;
+}
+
+.dock-item:hover {
+  background: rgba(127, 109, 242, 0.15);
+  transform: translateY(-4px) scale(1.05);
+}
+
+.dock-item:active {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+.dock-item.primary {
+  background: linear-gradient(135deg, var(--dream-lavender), var(--dream-pink));
+  color: var(--dream-periwinkle);
+  border: 2px solid white;
+}
+
+/* ========== KEYBOARD BUTTON ========== */
+.keyboard-btn {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  color: var(--dream-periwinkle);
+  background: linear-gradient(180deg, #ffffff 0%, #f0f0f0 100%);
+  border: 2px solid white;
+  border-radius: 8px;
+  padding: 12px 24px;
+  box-shadow: 0 4px 0px var(--dream-shadow), inset 0 1px 0 rgba(255,255,255,0.8);
+  cursor: pointer;
+  transition: all 0.1s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.keyboard-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0px var(--dream-shadow), inset 0 1px 0 rgba(255,255,255,0.8);
+}
+
+.keyboard-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0px var(--dream-shadow), inset 0 1px 0 rgba(255,255,255,0.8);
+}
+
+.keyboard-btn.primary {
+  background: linear-gradient(180deg, var(--dream-lavender) 0%, #c4b5fd 100%);
+}
+
+/* ========== SKILL TAGS ========== */
+.skill-tag {
+  font-family: 'Fira Code', monospace;
+  font-size: 12px;
+  background: rgba(127, 109, 242, 0.1);
+  color: var(--dream-periwinkle);
+  border: 1px solid rgba(127, 109, 242, 0.3);
+  border-radius: 4px;
+  padding: 6px 12px;
+}
+
+/* ========== GALLERY ITEMS ========== */
+.gallery-item {
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+  border: 2px solid white;
+  box-shadow: 4px 4px 0px var(--dream-shadow);
+}
+
+.gallery-item:hover {
+  transform: scale(1.03) translateY(-4px);
+  box-shadow: 6px 6px 0px var(--dream-shadow);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ========== LIGHTBOX (Image Viewer.exe) ========== */
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(108, 93, 211, 0.85);
+  backdrop-filter: blur(10px);
+  z-index: 200;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.lightbox.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightbox-window {
+  background: var(--dream-white);
+  backdrop-filter: blur(12px);
+  border: 3px solid white;
+  border-radius: 12px;
+  box-shadow: 8px 8px 0px var(--dream-shadow);
+  overflow: hidden;
+  max-width: 95vw;
+  max-height: 95vh;
+}
+
+.lightbox-title-bar {
+  background: linear-gradient(90deg, var(--dream-lavender), var(--dream-cyan));
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+.lightbox-title {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 8px;
+  color: var(--dream-periwinkle);
+}
+
+.lightbox-close {
+  width: 18px;
+  height: 18px;
+  background: #fecaca;
+  color: #dc2626;
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  border-radius: 2px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.1s ease;
+}
+
+.lightbox-close:hover {
+  transform: scale(1.1);
+  background: #fca5a5;
+}
+
+.lightbox-content {
+  padding: 8px;
+  line-height: 0;
+}
+
+.lightbox-content img {
+  max-width: 88vw;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 4px;
+  border: 2px solid white;
+}
+
+.lightbox-content iframe {
+  width: 88vw;
+  height: 80vh;
+  border: none;
+  border-radius: 4px;
+}
+
+/* Show states for lightbox */
+.lightbox.show-image .lightbox-content img {
+  display: block;
+}
+
+.lightbox.show-image .lightbox-content iframe {
+  display: none;
+}
+
+.lightbox.show-iframe .lightbox-content iframe {
+  display: block;
+}
+
+.lightbox.show-iframe .lightbox-content img {
+  display: none;
+}
+
+/* ========== MODEL CONTAINER (3D) ========== */
+#model-container {
+  width: 100%;
+  height: 500px;
+  border-radius: 8px;
+  border: 2px solid white;
+  box-shadow: 4px 4px 0px var(--dream-shadow);
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--dream-lavender) 0%, var(--dream-cyan) 100%);
+  position: relative;
+  z-index: 10;
+}
+
+#model-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+.model-tab-button {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 8px;
+  color: var(--dream-periwinkle);
+  background: rgba(255, 255, 255, 0.5);
+  border: 2px solid white;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.model-tab-button:hover {
+  background: rgba(255, 255, 255, 0.8);
+  transform: translateY(-2px);
+}
+
+.model-tab-button.active {
+  background: linear-gradient(135deg, var(--dream-lavender), var(--dream-pink));
+  box-shadow: 4px 4px 0px var(--dream-shadow);
+}
+
+/* ========== IFRAME CONTAINER ========== */
+.iframe-container {
+  border-radius: 8px;
+  border: 2px solid white;
+  box-shadow: 4px 4px 0px var(--dream-shadow);
+  overflow: hidden;
+  position: relative;
+  z-index: 10;
+}
+
+.iframe-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* ========== FOOTER ========== */
+.dreamos-footer {
+  background: var(--dream-white);
+  backdrop-filter: blur(12px);
+  border-top: 2px solid white;
+  padding: 16px;
+  text-align: center;
+}
+
+.dreamos-footer p {
+  font-family: 'Fira Code', monospace;
+  font-size: 12px;
+  color: var(--dream-periwinkle);
+}
+
+/* ========== MOBILE MENU ========== */
+.mobile-menu-btn {
+  background: var(--dream-white);
+  backdrop-filter: blur(12px);
+  border: 2px solid white;
+  border-radius: 8px;
+  padding: 8px;
+  color: var(--dream-periwinkle);
+  cursor: pointer;
+}
+
+.mobile-menu {
+  background: var(--dream-white);
+  backdrop-filter: blur(16px);
+  border: 2px solid white;
+  border-radius: 12px;
+  box-shadow: 4px 4px 0px var(--dream-shadow);
+  margin-top: 8px;
+  padding: 12px;
+}
+
+.mobile-menu a {
+  display: block;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 8px;
+  color: var(--dream-periwinkle);
+  padding: 12px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.mobile-menu a:hover {
+  background: rgba(127, 109, 242, 0.15);
+}
+
+/* ========== UTILITY CLASSES ========== */
+.text-dream-primary {
+  color: var(--dream-periwinkle);
+}
+
+.text-dream-muted {
+  color: rgba(108, 93, 211, 0.7);
+}
+
+.bg-dream-gradient {
+  background: linear-gradient(135deg, var(--dream-lavender) 0%, var(--dream-cyan) 50%, var(--dream-pink) 100%);
+}
+
+/* ========== BOOT LOADER ========== */
+#loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--dream-lavender) 0%, var(--dream-periwinkle) 100%);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+#loader-overlay.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+#loader-overlay.hidden {
+  display: none;
+}
+
+.loader-text {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  color: white;
+  text-shadow: 2px 2px 0px var(--dream-shadow);
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0.5; }
+}
+
+.loader-bar-container {
+  width: 200px;
+  height: 16px;
+  background: rgba(255, 255, 255, 0.3);
+  border: 2px solid white;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 4px 4px 0px var(--dream-shadow);
+}
+
+.loader-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--dream-cyan), var(--dream-pink));
+  animation: load 1.5s ease-out forwards;
+}
+
+@keyframes load {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+/* ========== PAGE TRANSITIONS ========== */
+.page-content {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.page-content.loaded {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-content.exit {
+  opacity: 0;
+  transform: translateY(-10px);
+}
